@@ -22,6 +22,7 @@ async function createModel() {
 }
 
 async function init() {
+  document.querySelector("button").disabled = true;
   const recognizer = await createModel();
   const classLabels = recognizer.wordLabels(); // get class labels
   const labelContainer = document.getElementById("label-container");
@@ -37,7 +38,7 @@ async function init() {
       labelContainer.innerHTML =
         classLabels[scores.indexOf(maxScore)] +
         " : " +
-        maxScore.toFixed(4) * 100 +
+        maxScore.toFixed(3) * 100 +
         "%";
       switch (classLabels[scores.indexOf(maxScore)]) {
         case "어쿠스틱 기타":
