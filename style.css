@@ -44,5 +44,6 @@ body {
 @media (max-width: 768px) {
   #div-main {
     width: 100vw;
+    margin-top: 0;
   }
 }
