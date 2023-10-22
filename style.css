@@ -45,5 +45,6 @@ body {
   #div-main {
     width: 100vw;
     margin-top: 0;
+    border-radius: 0;
   }
 }
