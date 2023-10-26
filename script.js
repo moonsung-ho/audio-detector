@@ -24,7 +24,7 @@ async function createModel() {
 async function init() {
   document.querySelector("button").disabled = true;
   const recognizer = await createModel();
-  const classLabels = recognizer.wordLabels(); // get class labels
+  const classLabels = recognizer.wordLabels(); // 악기 이름들을 가져온다
   const labelContainer = document.getElementById("label-container");
 
   // listen() takes two arguments:
@@ -32,19 +32,20 @@ async function init() {
   // 2. A configuration object with adjustable fields
   recognizer.listen(
     (result) => {
-      const scores = result.scores; // probability of prediction for each class
-      // render the probability scores per class
-      const maxScore = Math.max.apply(null, scores);
+      const scores = result.scores; // 표시되는 확률
+      const maxScore = Math.max.apply(null, scores); // 가장 높은 확률을 찾는다
       labelContainer.innerHTML =
-        classLabels[scores.indexOf(maxScore)] +
+        classLabels[scores.indexOf(maxScore)] + // maxScore가 classLabels의 몇 번째에 있는지 찾아서 악기 이름을 가져온다
         " : " +
-        maxScore.toFixed(3) * 100 +
-        "%";
-      switch (classLabels[scores.indexOf(maxScore)]) {
-        case "어쿠스틱 기타":
-          console.log("어쿠스틱 기타");
+        maxScore.toFixed(3) * 100 + // 소수점 3자리까지 표시하고 100을 곱해서 퍼센트로 표시한다
+        "%"; // 가장 높은 확률을 HTML로 넘겨서 표시한다
+      switch (
+        classLabels[scores.indexOf(maxScore)] // switch문으로 악기 이름에 따라 배경화면을 바꾼다
+      ) {
+        case "어쿠스틱 기타": // 악기 이름은 Teachable Machine에서 설정한 이름과 같아야 한다
+          console.log("어쿠스틱 기타"); // 콘솔에 악기 이름을 표시한다
           document.querySelector("body").style.backgroundImage =
-            "url('" + "/images/acoustic.jpg" + "')";
+            "url('" + "/images/acoustic.jpg" + "')"; // 배경화면을 바꾼다
           break;
         case "일렉기타":
           console.log("일렉기타");
